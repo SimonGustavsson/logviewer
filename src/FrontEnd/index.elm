@@ -13,51 +13,6 @@ import Navigation
 import UrlParser as Url exposing ((</>), (<?>), s, int, stringParam, top)
 import RemoteData exposing (WebData, RemoteData(NotAsked, Loading, Failure, Success))
 import Json.Decode exposing (Decoder, int, string, map3)
-import Dict exposing (Dict)
-
-
-type ServiceType
-    = Test String
-    | Logger (String -> String)
-
-
-type alias ServiceBag =
-    Dict String ServiceType
-
-
-emptyServiceManager : ServiceBag
-emptyServiceManager =
-    Dict.empty
-
-
-registerService : String -> ServiceType -> ServiceBag -> ServiceBag
-registerService serviceKey service bag =
-    Dict.update serviceKey (\old -> Just service) bag
-
-
-getService : ServiceBag -> String -> Maybe ServiceType
-getService bag serviceKey =
-    Dict.get serviceKey bag
-
-
-logFunction : String -> String
-logFunction str =
-    Debug.log "" str
-
-
-testService foo =
-    let
-        serviceManager =
-            emptyServiceManager
-                |> registerService "Log" (Logger logFunction)
-                |> registerService "Test" (Test "Something")
-    in
-        case getService serviceManager "Log" of
-            Just (Logger f) ->
-                f "Steve!"
-
-            _ ->
-                "Guess we have no logger"
 
 
 type alias LogEntry =
