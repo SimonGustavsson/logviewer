@@ -1,0 +1,209 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Simon's Log Viewer</title>
+	<style>
+		html,
+		head,
+		body {
+			padding: 0;
+			margin: 0;
+			height: 100%;
+		}
+
+		body {
+			font-family: calibri, helvetica, arial, sans-serif;
+			background: #222;
+		}
+
+		#main::after {
+			content: '';
+			position: absolute;
+			left: 0;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			z-index: -1;
+			background-image: url(/log.svg);
+			background-repeat: no-repeat;
+			background-position: center;
+			opacity: 0.1;
+			margin: 10%;
+
+			-webkit-animation: fadeinTo01 1.5s;
+			/* Safari, Chrome and Opera > 12.1 */
+			-moz-animation: fadeinTo01 1.5s;
+			/* Firefox < 16 */
+			-ms-animation: fadeinTo01 1.5s;
+			/* Internet Explorer */
+			-o-animation: fadeinTo01 1.5s;
+			/* Opera < 12.1 */
+			animation: fadeinTo01 1.5s;
+		}
+
+		.product {
+			color: #fff;
+			background: transparent;
+			border: 0;
+			cursor: pointer;
+			outline: none;
+			user-select: none;
+			margin: 3px 6px;
+			border-bottom: transparent 1px solid;
+
+			-o-transition: .75s;
+			-ms-transition: .75s;
+			-moz-transition: .75s;
+			-webkit-transition: .75s;
+			transition: .75s;
+		}
+
+		.product:hover {
+			color: orange;
+			border-bottom: orange 1px solid;
+		}
+
+		.activeProduct {
+			color: orange;
+			border-bottom: orange 1px solid;
+
+			/* for the :after */
+			position: relative;
+		}
+
+		.activeProduct::after {
+			/* Creates a little arrow pointing down */
+			content: "";
+			position: absolute;
+			top: 100%;
+			left: 50%;
+			border-top: 8px solid orange;
+			border-left: 8px solid transparent;
+			border-right: 8px solid transparent;
+			margin-left: -8px;
+		}
+
+		.entry {
+			display: flex;
+			flex-direction: row;
+
+			-webkit-animation: fadein 1s;
+			/* Safari, Chrome and Opera > 12.1 */
+			-moz-animation: fadein 1s;
+			/* Firefox < 16 */
+			-ms-animation: fadein 1s;
+			/* Internet Explorer */
+			-o-animation: fadein 1s;
+			/* Opera < 12.1 */
+			animation: fadein 1s;
+		}
+
+		.error {
+			color: red;
+			margin: 0;
+		}
+
+		.warning {
+			color: orange;
+			margin: 0;
+		}
+
+		.info {
+			color: white;
+			margin: 0;
+		}
+
+		.logMessage {
+			flex: 1 1;
+		}
+
+		.entryDate {
+			color: #999;
+			margin: 0 3px;
+			flex-grow: 0;
+		}
+
+		.loadingLabel {
+			font-size: 26px;
+			color: #fff;
+		}
+
+		.loadOlder {
+			color: #fff;
+			font-size: 0.8em;
+			cursor: pointer;
+			margin-left: 5%;
+		}
+
+		.loadingLabel::after {
+			overflow: hidden;
+			display: inline-block;
+			vertical-align: bottom;
+			-webkit-animation: ellipsis steps(4, end) 900ms infinite;
+			animation: ellipsis steps(4, end) 900ms infinite;
+			content: "\2026";
+			/* ascii code for the ellipsis character */
+			width: 0px;
+		}
+
+		@keyframes ellipsis {
+			to {
+				width: 1.25em;
+			}
+		}
+
+		@-webkit-keyframes ellipsis {
+			to {
+				width: 1.25em;
+			}
+		}
+
+		@keyframes fadein {
+			from {
+				opacity: 0;
+			}
+			to {
+				opacity: 1;
+			}
+		}
+
+		@-webkit-keyframes fadein {
+			from {
+				opacity: 0;
+			}
+			to {
+				opacity: 1;
+			}
+		}
+
+		@keyframes fadeinTo01 {
+			from {
+				opacity: 0;
+			}
+			to {
+				opacity: 0.1;
+			}
+		}
+
+		@-webkit-keyframes fadeinTo01 {
+			from {
+				opacity: 0;
+			}
+			to {
+				opacity: 0.1;
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<div id="main" style="height: 100%">
+	</div>
+
+	<script type="text/javascript" src="/main.js"></script>
+	<script type="text/javascript">Elm.Main.embed(document.getElementById('main'))</script>
+</body>
+
+</html>
